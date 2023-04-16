@@ -1,5 +1,6 @@
 package com.jplopes.workshopspring.config;
 
+import com.jplopes.workshopspring.dto.AuthorDTO;
 import com.jplopes.workshopspring.entity.Post;
 import com.jplopes.workshopspring.entity.User;
 import com.jplopes.workshopspring.repository.PostRepository;
@@ -30,10 +31,11 @@ public class Instantiaton implements CommandLineRunner {
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post post1 = new Post(null, Instant.parse("2019-06-20T19:53:07Z"), "Lets go travel", "I'm going to travel to SP, kisses!", maria);
-        Post post2 = new Post(null, Instant.parse("2019-06-23T10:53:07Z"), "Good Morning", "I'm happy today!", maria);
-
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
+
+        Post post1 = new Post(null, Instant.parse("2019-06-20T19:53:07Z"), "Lets go travel", "I'm going to travel to SP, kisses!", new AuthorDTO(maria));
+        Post post2 = new Post(null, Instant.parse("2019-06-23T10:53:07Z"), "Good Morning", "I'm happy today!", new AuthorDTO(maria));
+
         postRepository.saveAll(Arrays.asList(post1,post2));
 
     }
