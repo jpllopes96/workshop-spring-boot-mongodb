@@ -1,6 +1,7 @@
 package com.jplopes.workshopspring.resources;
 
 import com.jplopes.workshopspring.dto.UserDTO;
+import com.jplopes.workshopspring.entity.Post;
 import com.jplopes.workshopspring.entity.User;
 
 import com.jplopes.workshopspring.services.UserServices;
@@ -53,6 +54,12 @@ public class UserResource {
         obj.setId(id);
         obj = services.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = services.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 
 
