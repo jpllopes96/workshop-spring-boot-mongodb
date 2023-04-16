@@ -1,4 +1,5 @@
 package com.jplopes.workshopspring.services;
+import com.jplopes.workshopspring.dto.UserDTO;
 import com.jplopes.workshopspring.entity.User;
 import com.jplopes.workshopspring.repository.UserRepository;
 import com.jplopes.workshopspring.services.exceptions.ObjectNotFoundException;
@@ -20,6 +21,14 @@ public class UserServices {
     public User findById(String id){
         Optional<User> obj = repo.findById(id);
         return obj.orElseThrow(()-> new ObjectNotFoundException("User not found"));
+    }
+
+    public User insert (User obj){
+        return repo.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDto){
+        return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
     }
 
 }
