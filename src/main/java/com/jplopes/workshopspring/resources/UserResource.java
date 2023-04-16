@@ -1,5 +1,6 @@
 package com.jplopes.workshopspring.resources;
 
+import com.jplopes.workshopspring.dto.UserDTO;
 import com.jplopes.workshopspring.entity.User;
 
 import com.jplopes.workshopspring.services.UserServices;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -21,8 +23,9 @@ public class UserResource {
     private UserServices services;
 
     @GetMapping
-    public ResponseEntity<List <User>> findAll(){
+    public ResponseEntity<List <UserDTO>> findAll(){
         List<User> list = services.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 }
